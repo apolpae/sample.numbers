@@ -1,4 +1,10 @@
 class Node:
+    __OPERATORS = {
+        '+': lambda left, right : [right],
+        '-': lambda left, right : [-right],
+        '': lambda left, right : left * 10 + right
+    }
+
 
     def __init__(self, value: int):
         self.__next = None
@@ -40,12 +46,6 @@ class Node:
         return string_equation
 
     def find_equations(self, result: int, equation=None):
-        OPERATORS = {
-            '+': lambda left, right : [right],
-            '-': lambda left, right : [-right],
-            '': lambda left, right : left * 10 + right
-        }
-
         if not equation:
             equation = []
 
@@ -55,7 +55,7 @@ class Node:
 
         left_value = equation[-1] if len(equation) > 0 else 0
 
-        for operator, modifier in OPERATORS.items():
+        for operator, modifier in Node.__OPERATORS.items():
             self.__modify_equation(equation, left_value, self.__value,
                     operator, modifier)
 
