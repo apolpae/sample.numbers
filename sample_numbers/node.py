@@ -1,10 +1,9 @@
 class Node:
     __OPERATORS = {
-        '+': lambda left, right : [right],
-        '-': lambda left, right : [-right],
-        '': lambda left, right : left * 10 + right
+        '+': lambda left, right: [right],
+        '-': lambda left, right: [-right],
+        '': lambda left, right: left * 10 + right
     }
-
 
     def __init__(self, value: int):
         self.__next = None
@@ -45,7 +44,7 @@ class Node:
 
         return string_equation
 
-    def find_equations(self, result: int, equation=None):
+    def find_equations(self, result: int, equation: list = None):
         if not equation:
             equation = []
 
@@ -57,11 +56,11 @@ class Node:
 
         for operator, modifier in Node.__OPERATORS.items():
             self.__modify_equation(equation, left_value, self.__value,
-                    operator, modifier)
+                                   operator, modifier)
 
             if (self.__next):
                 result_equations = result_equations.union(
-                        self.__next.find_equations(result, equation))
+                    self.__next.find_equations(result, equation))
             else:
                 if (sum(equation) == result):
                     result_equations.add(
